@@ -6,3 +6,12 @@
   width: 100%;
   text-align: left;
 }
+
+.table > thead {
+  font-weight: 600;
+  background-color: chocolate;
+}
+
+.table td {
+  padding: 10px 0;
+}
