@@ -3,14 +3,16 @@ import axios from 'axios';
 
 const App = () => {
   const [users, setUsers] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get('https://jsonplaceholder.cypress.io/users');
-      console.log('response:', response);
-      // if (response) {
-      //   setUsers(response)
-      // }
+      if (response.status === 200) {
+        setUsers(response.data)
+      } else {
+        setError(`API request failed with code: ${response.status}`);
+      }
     }
     fetchData();
   }, [])
@@ -32,26 +34,31 @@ const App = () => {
   );
 
   return (
-    <div className="margin">
-    <table className='table'>
-      <thead>
-        <tr>
-          <td>
-          Name
-          </td>
-          <td>
-          Email
-          </td>
-          <td>
-          Url
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        {addRows()}
-      </tbody>
-    </table>
-    </div>
+      <div className="margin">
+      <table className='table'>
+        <thead>
+          <tr>
+            <td>
+            Name
+            </td>
+            <td>
+            Email
+            </td>
+            <td>
+            Url
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          {error ? 
+          <div>
+            <p>An error has ocurred :(</p>
+            <p>{error}</p>
+          </div>
+          : addRows()}
+        </tbody>
+      </table>
+      </div>
   );
 }
 
