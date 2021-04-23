@@ -1,65 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-const App = () => {
-  const [users, setUsers] = useState([]);
-  const [error, setError] = useState(null);
+import Menu from './Menu';
+import Users from './users';
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get('https://jsonplaceholder.cypress.io/users');
-      if (response.status === 200) {
-        setUsers(response.data)
-      } else {
-        setError(`API request failed with code: ${response.status}`);
-      }
-    }
-    fetchData();
-  }, [])
+const Tasks = () => (
+  <div>
+    Tasks
+  </div>
+);
 
-  const addRows = () => (
-    users.map((user, idx) => (
-      <tr key={idx}>
-        <td>
-          {user.name}
-        </td>
-        <td>
-          {user.email}
-        </td>
-        <td>
-          {user.website}
-        </td>
-      </tr>
-    ))
-  );
-
-  return (
-      <div className="margin">
-      <table className='table'>
-        <thead>
-          <tr>
-            <td>
-            Name
-            </td>
-            <td>
-            Email
-            </td>
-            <td>
-            Url
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-          {error ? 
-          <div>
-            <p>An error has ocurred :(</p>
-            <p>{error}</p>
-          </div>
-          : addRows()}
-        </tbody>
-      </table>
-      </div>
-  );
-}
+const App = () => (
+  <BrowserRouter>
+    <Menu />
+    <Switch>
+      <Route exact path='/' component={Users}/>
+      <Route exact path='/tasks' component={Tasks}/>
+    </Switch>
+  </BrowserRouter>
+);
 
 export default App;
