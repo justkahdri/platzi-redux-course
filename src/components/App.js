@@ -1,26 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const App = () => {
-  const [users, setUsers] = useState([
-    {
-      name: 'Joaquin',
-      email: 'joaco.rm512@gmail.com',
-      website: 'www.justkahdri.com'
-    },
-    {
-      name: 'Rodolfo',
-      email: 'rodo@saldivar.comm',
-      website: 'www.rodolfo_saldivar.com'
-    }
-  ])
+  const [users, setUsers] = useState([]);
 
-  const setRows = () => (
-    users.map(user => (
-      <tr>
-        {
-        Object.values(user).map(field => 
-          (<td>{field}</td>))
-        }
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get('https://jsonplaceholder.cypress.io/users');
+      console.log('response:', response);
+      // if (response) {
+      //   setUsers(response)
+      // }
+    }
+    fetchData();
+  }, [])
+
+  const addRows = () => (
+    users.map((user, idx) => (
+      <tr key={idx}>
+        <td>
+          {user.name}
+        </td>
+        <td>
+          {user.email}
+        </td>
+        <td>
+          {user.website}
+        </td>
       </tr>
     ))
   );
@@ -42,7 +48,7 @@ const App = () => {
         </tr>
       </thead>
       <tbody>
-        {setRows()}
+        {addRows()}
       </tbody>
     </table>
     </div>
