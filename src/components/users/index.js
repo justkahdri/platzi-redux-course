@@ -1,23 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { SET_USERS } from '../../actions';
+import * as usersActions from '../../actions/usersActions';
 
-const Users = ({users, handleFetch}) => {
-  const [error, setError] = useState(null);
+const Users = ({users, getUsers}) => {
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get('https://jsonplaceholder.cypress.io/users');
-      if (response.status === 200) {
-        handleFetch(response.data)
-      } else {
-        setError(`API request failed with code: ${response.status}`);
-      }
-    }
-    fetchData();
-  }, [])
+    getUsers();
+  }, [getUsers])
 
   const addRows = () => (
     users.map((user, idx) => (
@@ -51,22 +41,12 @@ const Users = ({users, handleFetch}) => {
           </tr>
         </thead>
         <tbody>
-          {error ? 
-          <div>
-            <p>An error has ocurred :(</p>
-            <p>{error}</p>
-          </div>
-          : addRows()}
+          {addRows()}
         </tbody>
       </table>
   );
 }
 
-const mapStateToProps = state => ({
-  users: state.users,
-})
+const mapStateToProps = reducers => (reducers.usersReducer);
 
-const mapDispatchToProps = dispatch => ({
-  handleFetch: data => dispatch(SET_USERS(data)),
-})
-export default connect(mapStateToProps, mapDispatchToProps)(Users);
+export default connect(mapStateToProps, usersActions)(Users);
