@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
-const Users = () => {
-  const [users, setUsers] = useState([]);
+import { SET_USERS } from '../../actions';
+
+const Users = ({users, handleFetch}) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get('https://jsonplaceholder.cypress.io/users');
       if (response.status === 200) {
-        setUsers(response.data)
+        handleFetch(response.data)
       } else {
         setError(`API request failed with code: ${response.status}`);
       }
@@ -34,7 +36,6 @@ const Users = () => {
   );
 
   return (
-      <div className="margin">
       <table className='table'>
         <thead>
           <tr>
@@ -58,8 +59,14 @@ const Users = () => {
           : addRows()}
         </tbody>
       </table>
-      </div>
   );
 }
 
-export default Users;
+const mapStateToProps = state => ({
+  users: state.users,
+})
+
+const mapDispatchToProps = dispatch => ({
+  handleFetch: data => dispatch(SET_USERS(data)),
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Users);

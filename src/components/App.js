@@ -13,10 +13,12 @@ const Tasks = () => (
 const App = () => (
   <BrowserRouter>
     <Menu />
-    <Switch>
-      <Route exact path='/' component={Users}/>
-      <Route exact path='/tasks' component={Tasks}/>
-    </Switch>
+    <div className='margin'>
+      <Switch>
+        <Route exact path='/' component={Users}/>
+        <Route exact path='/tasks' component={Tasks}/>
+      </Switch>
+    </div>
   </BrowserRouter>
 );
 
