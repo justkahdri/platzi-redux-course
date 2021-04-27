@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { SET_USERS } from '../types';
+import { LOADING, SET_USERS, TRIGGER_ERROR } from '../types';
 
 export const getUsers = () => async dispatch => {
+    dispatch({type: LOADING});
     try {
         const response = await axios.get('https://jsonplaceholder.cypress.io/users');
         if (response.status === 200) {
@@ -14,6 +15,7 @@ export const getUsers = () => async dispatch => {
         }
     } catch (err) {
         console.error(err);
+        dispatch({type: TRIGGER_ERROR, error: err});
     }
     
 }

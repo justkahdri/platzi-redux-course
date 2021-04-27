@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import * as usersActions from '../../actions/usersActions';
 
-const Users = ({users, getUsers}) => {
+const Users = ({users, getUsers, loading}) => {
 
   useEffect(() => {
     getUsers();
@@ -26,6 +26,7 @@ const Users = ({users, getUsers}) => {
   );
 
   return (
+    loading ? <h3>Loading table...</h3> :
       <table className='table'>
         <thead>
           <tr>
