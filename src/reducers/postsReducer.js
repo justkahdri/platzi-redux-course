@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 const postsReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case SET_POSTS:
-            return {...state, posts: action.payload, loading: false}
+            return {...state, posts: action.payload, loading: false, error: null}
         case LOADING:
             return {...state, loading: true}
         case TRIGGER_ERROR:

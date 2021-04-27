@@ -5,20 +5,25 @@ import { useParams } from "react-router";
 import { getUsers } from '../../actions/usersActions';
 import * as postsActions from '../../actions/postsActions';
 
-const Posts = ({usersReducer, postsReducer, getUsers, getPosts}) => {
+const Posts = ({usersReducer, postsReducer, getUsers, getPostsByUser}) => {
     const { users } = usersReducer;
     const { key } = useParams();
 
     useEffect(() => {
-        if(!users.length) {
-            getUsers();
+        const fetchData = async () => {
+            if(!users.length) {
+                await getUsers();
+            } 
+            getPostsByUser(key);
         }
-    }, [users, getUsers])
+        fetchData();
+    }, [users, key, getPostsByUser, getUsers])
 
     return (
     <div> 
         <h1>Posts by {}</h1>
         { key } 
+        { console.log(postsReducer) }
     </div>)
 }
 
