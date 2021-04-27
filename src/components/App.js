@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Menu from './Menu';
+import Posts from './Posts';
 import Users from './Users';
 
 const Tasks = () => (
@@ -17,6 +18,7 @@ const App = () => (
       <Switch>
         <Route exact path='/' component={Users}/>
         <Route exact path='/tasks' component={Tasks}/>
+        <Route exact path='/posts/:key' component={Posts} />
       </Switch>
     </div>
   </BrowserRouter>

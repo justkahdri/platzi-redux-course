@@ -7,7 +7,7 @@ import Fatal from '../Fatal';
 
 import * as usersActions from '../../actions/usersActions';
 
-const Users = ({users, getUsers, loading, error}) => {
+const Users = ({getUsers, loading, error}) => {
 
   useEffect(() => {
     getUsers();

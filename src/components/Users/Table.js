@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Table = ({users}) => {
     const addRows = () => (
@@ -12,6 +13,11 @@ const Table = ({users}) => {
             </td>
             <td>
               {user.website}
+            </td>
+            <td>
+                <Link to={`/posts/${idx}`}>
+                    <div className="eye icon"></div>
+                </Link>
             </td>
           </tr>
         ))
