@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import * as usersActions from '../../actions/usersActions';
+import Loader from '../Loader';
 
 const Users = ({users, getUsers, loading}) => {
 
@@ -26,7 +27,7 @@ const Users = ({users, getUsers, loading}) => {
   );
 
   return (
-    loading ? <h3>Loading table...</h3> :
+    loading ? <Loader name='Table'/> :
       <table className='table'>
         <thead>
           <tr>
