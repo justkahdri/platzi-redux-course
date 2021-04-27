@@ -1,4 +1,4 @@
-import { SET_USERS, LOADING, TRIGGER_ERROR } from "../types";
+import { SET_USERS, LOADING, TRIGGER_ERROR } from "../types/usersTypes";
 
 const INITIAL_STATE = {
     users: [],

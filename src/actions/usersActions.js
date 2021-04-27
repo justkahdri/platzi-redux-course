@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LOADING, SET_USERS, TRIGGER_ERROR } from '../types';
+import { LOADING, SET_USERS, TRIGGER_ERROR } from '../types/usersTypes';
 
 export const getUsers = () => async dispatch => {
     dispatch({type: LOADING});
@@ -11,7 +11,7 @@ export const getUsers = () => async dispatch => {
                 payload: response.data
             });
         } else {
-            new Error(`Response status: ${response.status}`);
+            throw new Error(`Response status: ${response.status}`);
         }
     } catch (err) {
         console.error(err);

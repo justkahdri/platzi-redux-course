@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 import { useParams } from "react-router";
 
 import { getUsers } from '../../actions/usersActions';
+import * as postsActions from '../../actions/postsActions';
 
-const Posts = ({users, getUsers}) => {
+const Posts = ({usersReducer, postsReducer, getUsers, getPosts}) => {
+    const { users } = usersReducer;
     const { key } = useParams();
 
     useEffect(() => {
@@ -20,6 +22,14 @@ const Posts = ({users, getUsers}) => {
     </div>)
 }
 
-const mapStateToProps = reducers => (reducers.usersReducer);
+const mapStateToProps = ({ usersReducer, postsReducer }) => ({
+    usersReducer,
+    postsReducer
+});
 
-export default connect(mapStateToProps, {getUsers})(Posts);
+const mapDispatchToProps = {
+    getUsers,
+    ...postsActions
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Posts);
