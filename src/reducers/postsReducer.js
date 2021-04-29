@@ -1,4 +1,4 @@
-import { LOADING, SET_POSTS, TRIGGER_ERROR } from "../types/postsTypes";
+import { LOADING, UPDATE_POSTS, TRIGGER_ERROR } from "../types/postsTypes";
 
 const INITIAL_STATE = {
     posts: [],
@@ -8,8 +8,9 @@ const INITIAL_STATE = {
 
 const postsReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case SET_POSTS:
-            return {...state, posts: action.payload, loading: false, error: null}
+        case UPDATE_POSTS:
+            const updated_posts = [...state.posts, ...action.payload];
+            return {...state, posts: updated_posts, loading: false, error: null}
         case LOADING:
             return {...state, loading: true}
         case TRIGGER_ERROR:

@@ -7,11 +7,13 @@ import Fatal from '../Fatal';
 
 import * as usersActions from '../../actions/usersActions';
 
-const Users = ({getUsers, loading, error}) => {
+const Users = ({users, getUsers, loading, error}) => {
 
   useEffect(() => {
-    getUsers();
-  }, [getUsers])
+    if (!users.length) {
+      getUsers();
+    } 
+  }, [users, getUsers])
 
   if (loading) {
     return <Loader name='Table'/>
