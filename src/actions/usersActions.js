@@ -14,7 +14,6 @@ export const getUsers = () => async dispatch => {
             throw new Error(`Response status: ${response.status}`);
         }
     } catch (err) {
-        console.error(err);
         dispatch({type: TRIGGER_ERROR, error: err});
     }
     

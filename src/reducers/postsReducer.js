@@ -9,8 +9,7 @@ const INITIAL_STATE = {
 const postsReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case UPDATE_POSTS:
-            const updated_posts = [...state.posts, ...action.payload];
-            return {...state, posts: updated_posts, loading: false, error: null}
+            return {...state, posts: action.payload, loading: false, error: null}
         case LOADING:
             return {...state, loading: true}
         case TRIGGER_ERROR:

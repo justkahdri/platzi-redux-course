@@ -15,7 +15,7 @@ const Table = ({users}) => {
               {user.website}
             </td>
             <td>
-                <Link to={`/posts/${idx}`}>
+                <Link to={`/posts/${user.id}`}>
                     <div className="eye icon"></div>
                 </Link>
             </td>
