@@ -8,8 +8,7 @@ import * as postsActions from '../../actions/postsActions';
 import Loader from '../Loader';
 import Fatal from '../Fatal';
 
-const Posts = ({usersReducer, postsReducer, getUsers, getPostsByUser}) => {
-    const {users} = usersReducer;
+const Posts = ({users, error, loading, getUsers, getPostsByUser}) => {
     const [ name, setName ] = useState();
     const { key } = useParams();
 
@@ -23,7 +22,6 @@ const Posts = ({usersReducer, postsReducer, getUsers, getPostsByUser}) => {
                   })
                 if (user) {
                     setName(user.name)
-                    console.log('K')
                     if (!user.hasOwnProperty("posts_index")) {
                         getPostsByUser(key);
                     }
@@ -34,22 +32,22 @@ const Posts = ({usersReducer, postsReducer, getUsers, getPostsByUser}) => {
         fetchData();
     }, [users])
 
-    if (usersReducer.error) {
-        return <Fatal message={usersReducer.error}/>
-    } else if (!users.length || usersReducer.loading) {
+    if (error) {
+        return <Fatal message={error}/>
+    } else if (!users.length || loading) {
         return <Loader name={'posts'}/>
     }
 
     return (
     <div> 
         <h1>Posts by {name}</h1>
-        { console.log(postsReducer, 'USERS', usersReducer) }
     </div>)
 }
 
 const mapStateToProps = ({ usersReducer, postsReducer }) => ({
-    usersReducer,
-    postsReducer
+    users: usersReducer.users,
+    loading: usersReducer.loading || postsReducer.loading,
+    error: postsReducer.error || usersReducer.error,
 });
 
 const mapDispatchToProps = {
